@@ -1,61 +1,89 @@
-// Every tuning number and colour in one place. The playfield is a fixed 1280x720 logical area;
-// the renderer scales it to the window, so no rule below depends on the screen size.
+// Solara Bay — every tuning number and colour in one place.
+// The city is a fixed 8x8 block grid on a 640x640 metre playfield; the
+// renderer scales the view to the window, so no rule depends on screen size.
 
-export const FIELD = { width: 1280, height: 720, groundY: 664 };
-
-/** The simulation's fixed step, in seconds: 60 updates a second whatever the display's rate. */
 export const STEP = 1 / 60;
 
+export const CITY = {
+  blocks: 8,          // blocks per side
+  blockSize: 64,      // metres of buildings per block
+  roadWidth: 16,      // metres of road between blocks
+  size: 640,          // whole playfield side, metres
+  seaAt: 340,         // x beyond this is beach + sea (east edge)
+  beachWidth: 36,
+};
+
 export const PLAYER = {
-  width: 72,
-  height: 24,
-  speed: 560,
-  invulnerable: 1.5,
+  walkSpeed: 7.2,
+  runSpeed: 11.5,
+  radius: 0.7,
+  health: 100,
 };
 
-export const LIVES = 3;
-
-export const BLOCK = {
-  minWidth: 40,
-  maxWidth: 110,
-  height: 36,
-  speed: 240,
-  speedPerLevel: 30,
-  speedJitter: 90,
-  interval: 0.55,
-  intervalScale: 0.88,
-  minInterval: 0.14,
-  dodgePoints: 1,
+export const CAR = {
+  accel: 26,
+  brake: 42,
+  reverseAccel: 14,
+  maxSpeed: 38,
+  maxReverse: 12,
+  turnRate: 2.1,
+  grip: 6.5,
 };
 
-export const COIN = {
-  size: 24,
-  speed: 190,
-  speedPerLevel: 14,
-  interval: 1.4,
-  intervalJitter: 0.8,
-  points: 10,
+export const WANTED = {
+  decayPerSec: 0.06,      // stars fall slowly when unseen
+  stealCar: 1,
+  hitPed: 1,
+  hitCop: 2,
+  killCop: 1,
+  max: 5,
+  heliAt: 4,
+  roadblockAt: 3,
 };
-
-/** Seconds of play per level, and the last level: speeds and spawn rates stop growing there. */
-export const LEVEL = { seconds: 12, max: 12 };
-
-/** How many falling things can exist at once; the pool is allocated once, at boot. */
-export const POOL_SIZE = 64;
 
 export const PALETTE = {
-  backdrop: '#11141b',
-  sky: '#1b1f2a',
-  ground: '#2a3040',
-  player: '#4fc3f7',
-  block: '#e5534b',
-  coin: '#f2c94c',
-  panel: '#252b38',
-  text: '#eef1f5',
-  muted: '#8b93a3',
+  skyTop: 0x2e4a7a,
+  skyHorizon: 0xffb36b,
+  sun: 0xffd9a0,
+  sea: 0x1f6f8b,
+  sand: 0xe8c98a,
+  grass: 0x5d8a4a,
+  asphalt: 0x3a3f4a,
+  asphaltLine: 0xf2e394,
+  sidewalk: 0x9a938a,
+  buildingA: 0xf2e3c6,
+  buildingB: 0xe8b48a,
+  buildingC: 0x8fb8d8,
+  buildingD: 0xd87a6a,
+  buildingE: 0x7fb08a,
+  glass: 0x2c4a66,
+  palm: 0x3f7a3a,
+  trunk: 0x8a6a4a,
+  text: '#f5efe2',
+  muted: '#c9bda6',
+  gold: '#ffc94d',
+  red: '#ff5a4d',
 };
 
 export const FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif';
 
-/** Where the best score is kept between visits (this browser only). */
-export const BEST_KEY = 'block-dodger.best';
+// Money / progression.
+export const ECONOMY = {
+  startCash: 120,
+  missionBase: 350,
+  missionPerStar: 150,
+  taxiFare: 60,
+  collectible: 75,
+  carPrice: 900,
+};
+
+export const MISSION_NAMES = [
+  'First Light',
+  'The Broker\'s Errand',
+  'Old Sal\'s Debt',
+  'Hot Wheels',
+  'Harbour Lights',
+  'The Long Way Home',
+  'Storm Warning',
+  'Solara Rising',
+];
